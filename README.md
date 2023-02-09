@@ -7,7 +7,7 @@
 </p>
 
 > How to use this project?
-[English](README.md) | 中文文档
+English | [中文文档](README_ZH.md)
 
 
 ## 🌟 Features
