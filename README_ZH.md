@@ -29,7 +29,17 @@
 
 要使解锁生效则需要在AdguardHome中添加重写规则，例如这样写就可以解锁netflix(需要将示例中的1.1.1.1改为服务器的IP)
 
-![DNSRewrite](dnsrewrite.png?raw=true)
+![DNSRewrite](image/dnsrewrite.png?raw=true)
+
+## Q&A
+> `docker compose up -d`提示 `Error response from daemon: Ports are not available: exposing port UDP 0.0.0.0:53 -> 0.0.0.0:0: listen udp 0.0.0.0:53: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.` (53端口被占用)怎么办
+
+1. sudo systemctl stop systemd-resolved
+2. sudo systemctl disable systemd-resolved
+3. docker compose up -d
+4. 参照![配置](#配置), 进行配置
+5. 然后你就会发现解锁虽然正常了. 但是主机没法上网了, 原因是AdguardHome充当了我们的DNS服务器, 占用了53端口, 但是主机现在的DNS服务器还指向`systemd-resolved`的`127.0.0.53:53`, 所以我们更改一下主机DNS就可以了
+6. `vim /etc/resolv.conf` 修改nameserver 127.0.0.53 到nameserver 127.0.0.1
 
 
 ## 🤝 为项目添砖加瓦
@@ -43,4 +53,4 @@
 ### 感谢 JetBrains 免费的开源授权
 
 <a href="https://www.jetbrains.com/" target="_blank">
-<img src="jetbrains.png" height="200"/></a>
+<img src="image/jetbrains.png" height="200"/></a>

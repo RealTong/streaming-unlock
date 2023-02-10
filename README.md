@@ -29,8 +29,17 @@ You can configure it yourself in webui or by modifying the `adguardhome/conf/AdG
 
 To make the unlocking work you need to add a rewrite rule to AdguardHome, e.g. write this to unlock netflix (you need to change 1.1.1.1 in the example to the IP of the server)
 
-![DNSRewrite](dnsrewrite.png?raw=true)
+![DNSRewrite](image/dnsrewrite.png?raw=true)
 
+## Q&A
+> `docker compose up -d`An error occurred `Error response from daemon: Ports are not available: exposing port UDP 0.0.0.0:53 -> 0.0.0.0:0: listen udp 0.0.0.0:53: bind: Only one usage of each socket address (protocol/network address/port) is normally permitted.` (Port 53 is occupied) What to do
+
+1. sudo systemctl stop systemd-resolved
+2. sudo systemctl disable systemd-resolved
+3. docker compose up -d
+4. Refer to ! [Configuration](#Configuration), to configure
+5. Then you will see that the unlock is working. The reason is that AdguardHome is acting as our DNS server and occupying port 53, but the DNS server of the host is still pointing to `127.0.0.53:53` of `systemd-resolved`, so we can change the DNS of the host and it will be fine.
+6. `vim /etc/resolv.conf` Modify nameserver 127.0.0.53 to nameserver 127.0.0.1
 
 ## 🤝 Contributing
 Contributions, issues and feature requests are welcome!
@@ -43,4 +52,4 @@ Contributions, issues and feature requests are welcome!
 ### Thanks to JetBrains for the free open source license
 
 <a href="https://www.jetbrains.com/" target="_blank">
-<img src="jetbrains.png" height="200"/></a>
+<img src="image/jetbrains.png" height="200"/></a>
