@@ -37,7 +37,7 @@ To make the unlocking work you need to add a rewrite rule to AdguardHome, e.g. w
 1. sudo systemctl stop systemd-resolved
 2. sudo systemctl disable systemd-resolved
 3. docker compose up -d
-4. Refer to ! [Configuration](#Configuration), to configure
+4. Refer to [Configuration](#Configuration), to configure
 5. Then you will see that the unlock is working. The reason is that AdguardHome is acting as our DNS server and occupying port 53, but the DNS server of the host is still pointing to `127.0.0.53:53` of `systemd-resolved`, so we can change the DNS of the host and it will be fine.
 6. `vim /etc/resolv.conf` Modify nameserver 127.0.0.53 to nameserver 127.0.0.1
 

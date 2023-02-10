@@ -37,7 +37,7 @@
 1. sudo systemctl stop systemd-resolved
 2. sudo systemctl disable systemd-resolved
 3. docker compose up -d
-4. 参照![配置](#配置), 进行配置
+4. 参照[配置](#配置), 进行配置
 5. 然后你就会发现解锁虽然正常了. 但是主机没法上网了, 原因是AdguardHome充当了我们的DNS服务器, 占用了53端口, 但是主机现在的DNS服务器还指向`systemd-resolved`的`127.0.0.53:53`, 所以我们更改一下主机DNS就可以了
 6. `vim /etc/resolv.conf` 修改nameserver 127.0.0.53 到nameserver 127.0.0.1
 
